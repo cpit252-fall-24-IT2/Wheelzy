@@ -2,6 +2,9 @@ package org.example;
 
 public class CarFactory {
     public static Car createCar(String category, String make, String model, double price, String type, int numOfSeats) {
+        if (category == null || category.trim().isEmpty())
+            throw new IllegalArgumentException("Invalid category");
+
         switch (category.toLowerCase()) {
             // if the car is SUV , then we need to identify how many seats : 5/7/9
             case "suv":
