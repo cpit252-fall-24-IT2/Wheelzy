@@ -1,12 +1,12 @@
-package com.example;
+package org.example;
 
 public class User {
     private String username;
     private String password;
     private String phoneNumber;
     private String role;
-    
-  public User(String username, String password, String phoneNumber, String role) {
+
+    public User(String username, String password, String phoneNumber, String role) {
         this.username = username;
         this.password = password;
         this.phoneNumber = phoneNumber;
