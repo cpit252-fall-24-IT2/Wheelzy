@@ -1,5 +1,6 @@
 package org.example;
 
+// Factory Design pattern to design different types of cars (SUV/Sedan)
 public class CarFactory {
     public static Car createCar(String category, String make, String model, double price, String type, int numOfSeats) {
         if (category == null || category.trim().isEmpty())

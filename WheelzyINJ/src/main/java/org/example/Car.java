@@ -1,5 +1,5 @@
 package org.example;
-
+// the abstract class for SUV and Sedan
 public abstract class Car {
     protected String make;
     protected String model;

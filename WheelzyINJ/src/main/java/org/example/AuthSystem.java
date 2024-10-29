@@ -4,11 +4,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
+// till now, we're trying :) so is not working ._.
+
 public class AuthSystem {
     private final String FILE_PATH = "login.txt";
     Scanner reader = new Scanner(FILE_PATH);
 
-    // after register , store to login file
+    // after register , store to log in file
     public void register(User user) throws IOException {
         try (PrintWriter writer = new PrintWriter(FILE_PATH)) {
                 if (!userExists(user.getUsername())) {

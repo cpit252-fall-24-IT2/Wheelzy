@@ -1,6 +1,6 @@
 package org.example;
 
-
+// our main class :D
 public class Main
 {
     public static void main( String[] args )
