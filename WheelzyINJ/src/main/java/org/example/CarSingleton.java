@@ -5,14 +5,13 @@ public class CarSingleton {
     private static CarSingleton instance;
     public String value;
 
-    private CarSingleton(String value) {
-        this.value = value;
+    private CarSingleton() {
     }
 
 
     public static CarSingleton getInstance(String value) {
         if (instance == null) {
-            instance = new CarSingleton(value);
+            instance = new CarSingleton();
         }
         return instance;
     }
