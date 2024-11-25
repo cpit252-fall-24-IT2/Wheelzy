@@ -12,6 +12,9 @@ public class Main {
 
         Car car1 = CarFactory.createCar("Sedan", "2022", "Toyota - Prado", 400, "Standard", 0);
         car1.displayCarInfo();
+//
+//        cars.add(new Car.Builder().setMake("Toyota").setModel("Camry").setPrice(200).build());
+//        cars.add(new Car.Builder().setMake("Ford").setModel("Explorer").setPrice(300).build());
 
 
     }
