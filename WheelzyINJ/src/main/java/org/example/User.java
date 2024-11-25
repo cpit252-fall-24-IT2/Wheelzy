@@ -1,6 +1,6 @@
 package org.example;
 // in Development... =)
-public class User {
+public class User implements Observer {
     private String username;
     private String password;
     private String phoneNumber;
@@ -27,5 +27,10 @@ public class User {
 
     public String toFile() {
         return username + "," + password + "," + phoneNumber + "," + role;
+    }
+
+    @Override
+    public void update(String message) {
+        System.out.println("Notification for " + username + ": " + message);
     }
 }
