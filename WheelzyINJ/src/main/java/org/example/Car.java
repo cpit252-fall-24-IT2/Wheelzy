@@ -13,7 +13,7 @@ public class Car {
     }
 
     public void displayCarInfo() {
-
+        System.out.println("The car is");
     }
 
 
