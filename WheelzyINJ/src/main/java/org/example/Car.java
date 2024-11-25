@@ -2,9 +2,9 @@ package org.example;
 
 // the abstract class for SUV and Sedan
 public class Car {
-    private final String make;
-    private final String model;
-    private final double price;
+    public final String make;
+    public final String model;
+    public final double price;
 
     public Car(String make, String model, double price) {
         this.make = make;
