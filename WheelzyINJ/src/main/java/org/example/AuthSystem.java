@@ -29,7 +29,12 @@ public class AuthSystem {
                 String[] data = line.split(",");
                 if (data[0].equals(username) && data[1].equals(password)) {
                     System.out.println("Login successful! Role: " + data[3]);
-                    return new User(data[0], data[1], data[2], data[3]);
+                    return new User.Builder()
+                            .setUsername(data[0])
+                            .setPassword(data[1])
+                            .setPhoneNumber(data[2])
+                            .setRole(data[3])
+                            .build();
                 }
             }
             System.out.println("Invalid username or password.");
