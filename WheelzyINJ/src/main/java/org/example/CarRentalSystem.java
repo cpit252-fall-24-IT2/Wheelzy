@@ -21,6 +21,10 @@ public class CarRentalSystem {
         return instance;
     }
 
+    public void start() {
+        System.out.println("Welcome to the Wheelzy Rental System!");
+    }
+
     public void addCar(Car car) {
         availableCars.add(car);
         System.out.println("Car added successfully!");

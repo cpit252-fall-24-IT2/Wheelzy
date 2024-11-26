@@ -9,12 +9,12 @@ public class Main {
     private static List<Car> cars = new ArrayList<>();
 
     public static void main(String[] args) {
+        CarRentalSystem rentalSystem = CarRentalSystem.getInstance();
+        rentalSystem.start();
 
         Car car1 = CarFactory.createCar("Sedan", "2022", "Toyota - Prado", 400, "Standard", 0);
         car1.displayCarInfo();
-//
-//        cars.add(new Car.Builder().setMake("Toyota").setModel("Camry").setPrice(200).build());
-//        cars.add(new Car.Builder().setMake("Ford").setModel("Explorer").setPrice(300).build());
+
 
 
     }
