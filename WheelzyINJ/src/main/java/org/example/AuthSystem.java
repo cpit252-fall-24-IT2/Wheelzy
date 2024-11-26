@@ -1,8 +1,7 @@
 package org.example;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 // till now, we're trying :) so is not working ._.
 
@@ -12,20 +11,21 @@ public class AuthSystem {
 
     // after register , store to log in file
     public void register(User user) throws IOException {
-        try (PrintWriter writer = new PrintWriter(FILE_PATH)) {
+        try (FileWriter  writer = new FileWriter(FILE_PATH, true)) {
                 if (!userExists(user.getUsername())) {
                     writer.write(user.toFile() + "\n");
                     System.out.println("User registered successfully as a customer.");
                 } else {
-                    System.out.println("Username already exist ! ");
+                    System.out.println("Username already exist ! , try " + user.getUsername() + (Math.random() * 10) + " " );
                 }
     }
     }
 
     // login will check the login file if exist or not or it valid or not
     public User login(String username, String password) throws IOException {
-            String line;
-            while ((line = reader.nextLine()) != null) {
+
+            while (reader.hasNextLine()) {
+                String line= reader.nextLine();
                 String[] data = line.split(",");
                 if (data[0].equals(username) && data[1].equals(password)) {
                     System.out.println("Login successful! Role: " + data[3]);
