@@ -183,5 +183,9 @@ public class CarRentalSystem {
     }
 
     private void notifyOwner() {
+        System.out.println("\nNotification sent to " + ownerUsername + ":");
+        System.out.println("Your car (ID: " + car.getId() + ", " + car.getMake() + " " + car.getModel() + ") has been rented by "
+                + renter.getUsername() + " from " + startDate + " to " + endDate + ".");
+
     }
 }
