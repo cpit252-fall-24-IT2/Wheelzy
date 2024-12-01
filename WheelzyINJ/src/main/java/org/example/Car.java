@@ -1,15 +1,39 @@
 package org.example;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 // the abstract class for SUV and Sedan
-public class Car {
+public abstract class Car {
+    private static int idCounter = 1;
+    protected int id;
     public final String make;
     public final String model;
     public final double price;
+    protected LocalDate availableFrom;
+    protected LocalDate availableTo;
+    private List<Observer> observers = new ArrayList<>();
+    protected String owner;
 
-    public Car(String make, String model, double price) {
+    protected Car(String make, String model, double price, String owner, LocalDate availableFrom, LocalDate availableTo) {
+        this.id = idCounter++;
         this.make = make;
         this.model = model;
         this.price = price;
+        this.owner = owner;
+        this.availableFrom = availableFrom;
+        this.availableTo = availableTo;
+    }
+
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    protected void notifyObservers(String message) {
+        for (Observer observer : observers) {
+            observer.update(message);
+        }
     }
 //Builder**
     //    private Car(Builder builder) {
@@ -18,10 +42,44 @@ public class Car {
 //        this.price = builder.setPrice();
 //    }
 
-    public void displayCarInfo() {
-        System.out.println("The car is");
+    public abstract void displayCarInfo() ;
+
+    public int getId() {
+        return id;
     }
 
+    public String getMake() {
+        return make;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public LocalDate getAvailableFrom() {
+        return availableFrom;
+    }
+
+    public LocalDate getAvailableTo() {
+        return availableTo;
+    }
+
+
+    public void setAvailability(LocalDate from, LocalDate to) {
+        if (from.isAfter(to)) {
+            throw new IllegalArgumentException("Start date cannot be after end date.");
+        }
+        this.availableFrom = from;
+        this.availableTo = to;
+    }
 
 //    public static class Builder {
 //        private String make;
