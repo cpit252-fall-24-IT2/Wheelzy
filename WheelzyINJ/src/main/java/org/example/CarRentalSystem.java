@@ -113,5 +113,13 @@ public class CarRentalSystem {
         }
     }
 
+    private void rentCar() {
+        carService.displayAvailableCarsExcludingOwner(user.getUsername());
+        String response = scanner.nextLine().trim().toLowerCase();
+        if (response.equals("yes")) {
+        } else {
+            System.out.println("Returning to the menu...");
+        }
 
+    }
 }
