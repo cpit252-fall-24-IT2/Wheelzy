@@ -19,7 +19,6 @@ public class CarRentalSystem {
         this.scanner = new Scanner(System.in);
     }
 
-
     public static CarRentalSystem getInstance() {
         if (instance == null) {
             instance = new CarRentalSystem();
@@ -65,15 +64,17 @@ public class CarRentalSystem {
         String username = scanner.nextLine();
         System.out.print("Enter password: ");
         String password = scanner.nextLine();
-
-        try {
-            User user = authSystem.login(username, password);
-            if (user != null) {
-                processUserActions(user);
-            }
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+        User user = authSystem.login(username, password);
+        if (user != null) {
+            userMenu(user);
         }
+    }
+
+    private void userMenu(User user) {
+
+        // here wil be the home page
+
+
     }
 
     private void handleRegister() {
@@ -100,41 +101,7 @@ public class CarRentalSystem {
         }
     }
 
-    private void processUserActions(User user) {
-        while (true) {
-            System.out.println("\nWelcome, " + user.getUsername());
-            System.out.println("1. View available cars\n2. Rent your car\n3. Logout");
-            System.out.print("Choose an option: ");
-            int choice = scanner.nextInt();
-            scanner.nextLine();
 
-            switch (choice) {
-                case 1: {
-                    carService.displayAvailableCars();
-                    System.out.print("Do you want to rent a car? (yes/no): ");
-                    String rentOption = scanner.nextLine();
-                    if (rentOption.equalsIgnoreCase("yes")) {
-                        System.out.print("Enter the ID of the car you want to rent: ");
-                        int carId = scanner.nextInt();
-                        scanner.nextLine();
-                        if (carService.rentCar(carId, user.getUsername())) {
-                            System.out.println("Car rented successfully!");
-                        } else {
-                            System.out.println("Car not found or already rented.");
-                        }
-                    }
-                }
-                case 2:
-                    carService.addCarFromInput(scanner);
-                case 3: {
-                    System.out.println("Logging out...");
-                    return;
-                }
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-            }
-        }
-    }
 
 
 }
