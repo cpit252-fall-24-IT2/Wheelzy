@@ -71,10 +71,28 @@ public class CarRentalSystem {
     }
 
     private void userMenu(User user) {
-
-        // here wil be the home page
-
-
+        while (true) {
+            System.out.println("\n1. View and Rent Cars\n2. Add Your Car\n3. Logout\n0. Exit");
+            System.out.print("Choose an option: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // عشان يسوي سطر جديد
+            switch (choice) {
+                case 1:
+                    rentCar(user);
+                case 2:
+                    carService.addCarFromInput(scanner, user.getUsername());
+                case 3: {
+                    System.out.println("Logging out...");
+                    return;
+                }
+                case 0: {
+                    System.out.println("Exiting program...");
+                    System.exit(0);
+                }
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
     }
 
     private void handleRegister() {
@@ -100,8 +118,6 @@ public class CarRentalSystem {
             System.out.println("Error: " + e.getMessage());
         }
     }
-
-
 
 
 }
