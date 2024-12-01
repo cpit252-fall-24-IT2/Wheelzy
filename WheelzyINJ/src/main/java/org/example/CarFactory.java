@@ -1,21 +1,24 @@
 package org.example;
 
 // Factory Design pattern to design different types of cars (SUV/Sedan)
-public class CarFactory {
-    public static Car createCar(String category, String make, String model, double price, String type, int numOfSeats) {
-        if (category == null || category.trim().isEmpty())
-            throw new IllegalArgumentException("Invalid category");
+import java.time.LocalDate;
 
-        switch (category.toLowerCase()) {
-            // if the car is SUV , then we need to identify how many seats : 5/7/9
-            case "suv":
-                return new SUV(make, model, price, numOfSeats);
-            // if the car is Sedan , then we need to identify which type of Sedan : Economy/Standard/Luxury
-            case "sedan":
-                return new Sedan(make, model, price, type);
-            default:
-                // throw an exception to terminal class to catch it later (not implemented yet =) )
-                throw new IllegalArgumentException("Unknown car type: " + category);
+public class CarFactory {
+    public static Car getCar(String type, String make, String model, double price, String owner,
+                             String additionalAttribute, LocalDate availableFrom, LocalDate availableTo) {
+        if (type == null || type.isEmpty()) {
+            return null;
         }
+
+        if (type.equalsIgnoreCase("SUV")) {
+            int numOfSeats = Integer.parseInt(additionalAttribute);
+            return new SUV(make, model, price, numOfSeats, owner, availableFrom, availableTo);
+        } else if (type.equalsIgnoreCase("Sedan")) {
+            return new Sedan(make, model, price, additionalAttribute, owner, availableFrom, availableTo);
+        }
+
+        System.err.println("Unknown car type");
+        return null;
     }
 }
+
