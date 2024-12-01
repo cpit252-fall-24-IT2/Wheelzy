@@ -100,20 +100,14 @@ public class CarRentalSystem {
         String username = scanner.nextLine();
         System.out.print("Enter password: ");
         String password = scanner.nextLine();
-        System.out.print("Enter phone number: ");
+        System.out.print("Enter phone: ");
         String phone = scanner.nextLine();
-        System.out.print("Enter role (Customer/Provider): ");
-        String role = scanner.nextLine();
-
-        User user = new User.Builder()
-                .setUsername(username)
-                .setPassword(password)
-                .setPhoneNumber(phone)
-                .setRole(role)
-                .build();
-
+        System.out.print("Enter email: ");
+        String email = scanner.nextLine();
+        System.out.print("Enter address: ");
+        String address = scanner.nextLine();
         try {
-            authSystem.register(user);
+            authSystem.register(username, password, phone, email, address);
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
