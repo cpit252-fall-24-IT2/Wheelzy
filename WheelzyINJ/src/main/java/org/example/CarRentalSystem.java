@@ -161,9 +161,27 @@ public class CarRentalSystem {
                     System.out.println("Invalid date format. Please enter the date in YYYY-MM-DD format.");
                 }
             }
+
+            if (startDate.isAfter(car.getAvailableFrom())) {
+                carService.splitCarAvailability(car, car.getAvailableFrom(), startDate.minusDays(1));
+            }
+
+            if (endDate.isBefore(car.getAvailableTo())) {
+                carService.splitCarAvailability(car, endDate.plusDays(1), car.getAvailableTo());
+            }
+
+
+            car.setAvailability(endDate.plusDays(1), endDate.plusDays(1));
+            System.out.println("Car rented successfully from " + startDate + " to " + endDate);
+
+
+            notifyOwner(car.getOwner(), user, car, startDate, endDate);
         } else {
             System.out.println("Returning to the menu...");
         }
 
+    }
+
+    private void notifyOwner() {
     }
 }
