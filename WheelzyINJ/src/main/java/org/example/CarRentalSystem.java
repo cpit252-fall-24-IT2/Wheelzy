@@ -2,6 +2,7 @@ package org.example;
 
 // Singleton Class  :)
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.Scanner;
 
@@ -9,7 +10,7 @@ public class CarRentalSystem {
 
     private static CarRentalSystem instance;
     private AuthSystem authSystem;
-    private CarService carService;
+    private carService carService;
     private Scanner scanner;
 
     private CarRentalSystem() {
@@ -29,8 +30,10 @@ public class CarRentalSystem {
     }
 
     public void initialize() {
-        carService.addCar(new Sedan("Toyota", "Camry", 200, "Standard", "Ahmed"));
-        carService.addCar(new SUV("Ford", "Explorer", 300, 7, "Ali"));
+        carService.addCar(new Sedan("Toyota", "Camry", 200.0, "Standard", "Ali",
+                LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 31)));
+        carService.addCar(new SUV("Ford", "Explorer", 300.0, 7, "Ahmed",
+                LocalDate.of(2024, 12, 5), LocalDate.of(2024, 12, 20)));
     }
 
     public void processUserInput() {
