@@ -117,6 +117,50 @@ public class CarRentalSystem {
         carService.displayAvailableCarsExcludingOwner(user.getUsername());
         String response = scanner.nextLine().trim().toLowerCase();
         if (response.equals("yes")) {
+            System.out.print("Enter the ID of the car you want to rent: ");
+            int carId = scanner.nextInt();
+            scanner.nextLine();
+
+            Car car = carService.getCarById(carId);
+            if (car == null) {
+                System.out.println("Invalid car ID. Returning to the menu...");
+                return;
+            }
+
+            LocalDate startDate = null;
+            LocalDate endDate = null;
+
+            while (true) {
+                try {
+                    System.out.print("Enter rental start date (YYYY-MM-DD): ");
+                    startDate = LocalDate.parse(scanner.nextLine());
+                    if (startDate.isBefore(car.getAvailableFrom())) {
+                        System.out.println("Start date cannot be before the available start date (" + car.getAvailableFrom() + ").");
+                        continue;
+                    }
+                    break;
+                } catch (Exception e) {
+                    System.out.println("Invalid date format. Please enter the date in YYYY-MM-DD format.");
+                }
+            }
+
+            while (true) {
+                try {
+                    System.out.print("Enter rental end date (YYYY-MM-DD): ");
+                    endDate = LocalDate.parse(scanner.nextLine());
+                    if (endDate.isAfter(car.getAvailableTo())) {
+                        System.out.println("End date cannot be after the available end date (" + car.getAvailableTo() + ").");
+                        continue;
+                    }
+                    if (endDate.isBefore(startDate)) {
+                        System.out.println("End date cannot be before the start date (" + startDate + ").");
+                        continue;
+                    }
+                    break;
+                } catch (Exception e) {
+                    System.out.println("Invalid date format. Please enter the date in YYYY-MM-DD format.");
+                }
+            }
         } else {
             System.out.println("Returning to the menu...");
         }
