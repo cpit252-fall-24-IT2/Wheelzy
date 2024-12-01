@@ -1,6 +1,6 @@
 package org.example;
 
-public class carService {
+public class CarService {
 
     //Under create
     public static void addCar() {
