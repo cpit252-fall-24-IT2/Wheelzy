@@ -14,7 +14,9 @@ public class CarRentalSystem {
     private Scanner scanner;
 
     private CarRentalSystem() {
-        availableCars = new ArrayList<>();
+        this.authSystem = new AuthSystem();
+        this.carService = new carService();
+        this.scanner = new Scanner(System.in);
     }
 
 
