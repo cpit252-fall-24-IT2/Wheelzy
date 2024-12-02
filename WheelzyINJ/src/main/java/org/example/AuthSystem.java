@@ -31,16 +31,55 @@ public class AuthSystem {
 
 
     // after register , store to log in file
-    public void register(User user) throws IOException {
-        try (FileWriter  writer = new FileWriter(FILE_PATH, true)) {
-                if (!userExists(user.getUsername())) {
-                    writer.write(user.toFile() + "\n");
-                    System.out.println("User registered successfully as a customer.");
-                } else {
-                    System.out.println("Username already exist ! , try " + user.getUsername() + (Math.random() * 10) + " " );
-                }
+    public void register(String username, String password, String phoneNumber, String email, String address) throws IOException {
+        if (findUserByUsername(username) != null) {
+            System.out.println("Username is already taken!");
+            return;
+        }
+
+        if (findUserByPhoneNumber(phoneNumber) != null) {
+            System.out.println("Phone number is already in use!");
+            return;
+        }
+        if (findUserByEmail(email) != null) {
+            System.out.println("email is already in use!");
+            return;
+        }
+
+        User newUser = new User(username, password, phoneNumber, email, address);
+        users.add(newUser);
+        try (FileWriter writer = new FileWriter(FILE_PATH, true)) {
+            writer.write(newUser.toFile() + "\n");
+            System.out.println("User registered successfully.");
+        }
     }
+
+    private User findUserByUsername(String username) {
+        for (User user : users) {
+            if (user.getUsername().equals(username)) {
+                return user;
+            }
+        }
+        return null;
     }
+    private User findUserByPhoneNumber(String phoneNumber) {
+        for (User user : users) {
+            if (user.getPhoneNumber().equals(phoneNumber)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    private User findUserByEmail(String email) {
+        for (User user : users) {
+            if (user.getEmail().equals(email)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
 
     // login will check the login file if exist or not or it valid or not
     public User login(String username, String password) throws IOException {
@@ -63,17 +102,6 @@ public class AuthSystem {
         return null;
 
     }
-    // check while register if the username exists or not
-    public boolean userExists(String username) throws IOException {
-            String line;
-            while ((line = reader.nextLine()) != null) {
-                String[] data = line.split(",");
-                if (data[0].equals(username)) {
-                    return true;
-                }
-            }
-
-        return false;
-    }
+ 
 }
 
