@@ -10,12 +10,12 @@ public class CarRentalSystem {
 
     private static CarRentalSystem instance;
     private AuthSystem authSystem;
-    private carService carService;
+    private CarService carService;
     private Scanner scanner;
 
     private CarRentalSystem() {
         this.authSystem = new AuthSystem();
-        this.carService = new carService();
+        this.carService = new CarService();
         this.scanner = new Scanner(System.in);
     }
 
@@ -113,7 +113,7 @@ public class CarRentalSystem {
         }
     }
 
-    private void rentCar() {
+    private void rentCar(User user) {
         carService.displayAvailableCarsExcludingOwner(user.getUsername());
         String response = scanner.nextLine().trim().toLowerCase();
         if (response.equals("yes")) {
@@ -182,7 +182,7 @@ public class CarRentalSystem {
 
     }
 
-    private void notifyOwner() {
+    private void notifyOwner(String ownerUsername, User renter, Car car, LocalDate startDate, LocalDate endDate) {
         System.out.println("\nNotification sent to " + ownerUsername + ":");
         System.out.println("Your car (ID: " + car.getId() + ", " + car.getMake() + " " + car.getModel() + ") has been rented by "
                 + renter.getUsername() + " from " + startDate + " to " + endDate + ".");
