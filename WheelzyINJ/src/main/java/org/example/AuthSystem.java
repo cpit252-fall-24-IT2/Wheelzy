@@ -7,7 +7,28 @@ import java.util.*;
 
 public class AuthSystem {
     private final String FILE_PATH = "login.txt";
-    Scanner reader = new Scanner(FILE_PATH);
+    private ArrayList<User> users;
+
+    public AuthSystem() {
+        this.users = new ArrayList<>();
+        loadUsers();
+    }
+
+    private void loadUsers() {
+        try (Scanner reader = new Scanner(new File(FILE_PATH))) {
+            while (reader.hasNextLine()) {
+                String line = reader.nextLine();
+                String[] data = line.split(",");
+                if (data.length == 5) {
+                    User user = new User(data[0], data[1], data[2], data[3], data[4]);
+                    users.add(user);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading users: " + e.getMessage());
+        }
+    }
+
 
     // after register , store to log in file
     public void register(User user) throws IOException {
