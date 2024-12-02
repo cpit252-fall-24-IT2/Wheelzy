@@ -3,7 +3,6 @@ package org.example;
 import java.io.*;
 import java.util.*;
 
-// till now, we're trying :) so is not working ._.
 
 public class AuthSystem {
     private final String FILE_PATH = "login.txt";
@@ -81,27 +80,22 @@ public class AuthSystem {
     }
 
 
-    // login will check the login file if exist or not or it valid or not
-    public User login(String username, String password) throws IOException {
+    // login will check the array of user
+    public User login(String username, String password) {
+        User user = findUserByUsername(username);
+        if (user == null) {
+            System.out.println("Username not found.");
+            return null;
+        }
 
-            while (reader.hasNextLine()) {
-                String line= reader.nextLine();
-                String[] data = line.split(",");
-                if (data[0].equals(username) && data[1].equals(password)) {
-                    System.out.println("Login successful! Role: " + data[3]);
-                    return new User.Builder()
-                            .setUsername(data[0])
-                            .setPassword(data[1])
-                            .setPhoneNumber(data[2])
-                            .setRole(data[3])
-                            .build();
-                }
-            }
-            System.out.println("Invalid username or password.");
+        if (!user.getPassword().equals(password)) {
+            System.out.println("Password is incorrect.");
+            return null;
+        }
 
-        return null;
-
+        System.out.println("Login successful! Welcome, " + user.getUsername() + ".");
+        return user;
     }
- 
+
 }
 
