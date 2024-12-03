@@ -1,21 +1,22 @@
+
 package org.example;
 
-// Singleton Class  :)
-
 import java.time.LocalDate;
-import java.util.*;
 import java.util.Scanner;
 
 public class CarRentalSystem {
-
     private static CarRentalSystem instance;
-    private AuthSystem authSystem;
-    private CarService carService;
-    private Scanner scanner;
+    private final AuthSystem authSystem;
+    private final CarService carService;
+    private final NotificationManager notificationManager;
+    private final ReceiptGenerator receiptGenerator;
+    private final Scanner scanner;
 
     private CarRentalSystem() {
         this.authSystem = new AuthSystem();
         this.carService = new CarService();
+        this.notificationManager = new NotificationManager();
+        this.receiptGenerator = new ReceiptGenerator();
         this.scanner = new Scanner(System.in);
     }
 
@@ -26,15 +27,13 @@ public class CarRentalSystem {
         return instance;
     }
 
-    public void start() {
-        System.out.println("Welcome to the Wheelzy Rental System!");
+    public void initialize() {
+        carService.addCar(new Sedan("Toyota", "Camry", 200.0, "Standard", "Ali", LocalDate.of(2024, 12, 9), LocalDate.of(2024, 12, 31)));
+        carService.addCar(new SUV("Ford", "Explorer", 300.0, 7, "Ahmed", LocalDate.of(2024, 12, 5), LocalDate.of(2024, 12, 20)));
     }
 
-    public void initialize() {
-        carService.addCar(new Sedan("Toyota", "Camry", 200.0, "Standard", "Ali",
-                LocalDate.of(2024, 12, 1), LocalDate.of(2024, 12, 31)));
-        carService.addCar(new SUV("Ford", "Explorer", 300.0, 7, "Ahmed",
-                LocalDate.of(2024, 12, 5), LocalDate.of(2024, 12, 20)));
+    public void start() {
+        System.out.println("Welcome to the Wheelzy Rental System!");
     }
 
     public void processUserInput() {
@@ -43,18 +42,14 @@ public class CarRentalSystem {
             System.out.print("Choose an option: ");
             int choice = scanner.nextInt();
             scanner.nextLine();
-
             switch (choice) {
-                case 1:
-                    handleLogin();
-                case 2:
-                    handleRegister();
-                case 3: {
-                    System.out.println("Thank you for using Wheelzy! Goodbye!");
+                case 1 -> handleLogin();
+                case 2 -> handleRegister();
+                case 3 -> {
+                    System.out.println("Thank you for using Wheelzy!");
                     return;
                 }
-                default:
-                    System.out.println("Invalid choice. Please try again.");
+                default -> System.out.println("Invalid choice.");
             }
         }
     }
@@ -64,35 +59,18 @@ public class CarRentalSystem {
         String username = scanner.nextLine();
         System.out.print("Enter password: ");
         String password = scanner.nextLine();
-        User user = authSystem.login(username, password);
-        if (user != null) {
+        try {
+            User user = authSystem.login(username, password);
+            System.out.println("Welcome to Wheelzy , "+ username);
+            notifyOwnerOnLogin(user);
             userMenu(user);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
-    private void userMenu(User user) {
-        while (true) {
-            System.out.println("\n1. View and Rent Cars\n2. Add Your Car\n3. Logout\n0. Exit");
-            System.out.print("Choose an option: ");
-            int choice = scanner.nextInt();
-            scanner.nextLine(); // عشان يسوي سطر جديد
-            switch (choice) {
-                case 1:
-                    rentCar(user);
-                case 2:
-                    carService.addCarFromInput(scanner, user.getUsername());
-                case 3: {
-                    System.out.println("Logging out...");
-                    return;
-                }
-                case 0: {
-                    System.out.println("Exiting program...");
-                    System.exit(0);
-                }
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-            }
-        }
+    private void notifyOwnerOnLogin(User user) {
+        notificationManager.displayNotifications(user.getUsername());
     }
 
     private void handleRegister() {
@@ -113,13 +91,37 @@ public class CarRentalSystem {
         }
     }
 
+    private void userMenu(User user) {
+        while (true) {
+            System.out.println("\n1. View and Rent Cars\n2. Add Your Car\n3. Logout\n0. Exit");
+            System.out.print("Choose an option: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+            switch (choice) {
+                case 1 -> rentCar(user);
+                case 2 -> carService.addCarFromInput(scanner, user.getUsername());
+                case 3 -> {
+                    System.out.println("Logging out...");
+                    return;
+                }
+                case 0 -> {
+                    System.out.println("Exiting program...");
+                    System.exit(0);
+                }
+                default -> System.out.println("Invalid choice.");
+            }
+        }
+    }
+
     private void rentCar(User user) {
         carService.displayAvailableCarsExcludingOwner(user.getUsername());
+        System.out.print("\nDo you want to rent a car? (yes/no): ");
         String response = scanner.nextLine().trim().toLowerCase();
+
         if (response.equals("yes")) {
             System.out.print("Enter the ID of the car you want to rent: ");
             int carId = scanner.nextInt();
-            scanner.nextLine();
+            scanner.nextLine(); // Consume newline
 
             Car car = carService.getCarById(carId);
             if (car == null) {
@@ -130,62 +132,64 @@ public class CarRentalSystem {
             LocalDate startDate = null;
             LocalDate endDate = null;
 
+            // Collect and validate rental start date
             while (true) {
                 try {
                     System.out.print("Enter rental start date (YYYY-MM-DD): ");
                     startDate = LocalDate.parse(scanner.nextLine());
-                    if (startDate.isBefore(car.getAvailableFrom())) {
-                        System.out.println("Start date cannot be before the available start date (" + car.getAvailableFrom() + ").");
+                    if (startDate.isBefore(car.getAvailableFrom()) || startDate.isAfter(car.getAvailableTo())) {
+                        System.out.printf("Start date must be between %s and %s.%n",
+                                car.getAvailableFrom(), car.getAvailableTo());
                         continue;
                     }
-                    break;
+                    break; // Valid date
                 } catch (Exception e) {
                     System.out.println("Invalid date format. Please enter the date in YYYY-MM-DD format.");
                 }
             }
 
+            // Collect and validate rental end date
             while (true) {
                 try {
                     System.out.print("Enter rental end date (YYYY-MM-DD): ");
                     endDate = LocalDate.parse(scanner.nextLine());
-                    if (endDate.isAfter(car.getAvailableTo())) {
-                        System.out.println("End date cannot be after the available end date (" + car.getAvailableTo() + ").");
+                    if (endDate.isBefore(startDate) || endDate.isAfter(car.getAvailableTo())) {
+                        System.out.printf("End date must be after %s and no later than %s.%n",
+                                startDate, car.getAvailableTo());
                         continue;
                     }
-                    if (endDate.isBefore(startDate)) {
-                        System.out.println("End date cannot be before the start date (" + startDate + ").");
-                        continue;
-                    }
-                    break;
+                    break; // Valid date
                 } catch (Exception e) {
                     System.out.println("Invalid date format. Please enter the date in YYYY-MM-DD format.");
                 }
             }
 
-            if (startDate.isAfter(car.getAvailableFrom())) {
-                carService.splitCarAvailability(car, car.getAvailableFrom(), startDate.minusDays(1));
+            // Generate and display the receipt
+            receiptGenerator.generateReceipt(car, startDate, endDate);
+
+            // Ask for confirmation
+            System.out.print("Do you want to confirm the rental? (yes/no): ");
+            String confirmation = scanner.nextLine().trim().toLowerCase();
+
+            if (confirmation.equals("yes")) {
+                // Update car availability
+                carService.splitCarAvailability(car, startDate, endDate);
+
+                // Notify the owner
+                String owner = car.getOwner();
+                String message = String.format("Your car %s %s has been rented by %s from %s to %s.",
+                        car.getMake(), car.getModel(), user.getUsername(), startDate, endDate);
+                notificationManager.addNotification(owner, message);
+
+                // Show final confirmation message
+                System.out.printf("Car rented successfully from %s to %s.%n", startDate, endDate);
+                System.out.println("The courier will contact you via mobile phone number : "+user.getPhoneNumber()+" .");
+            } else {
+                System.out.println("Rental cancelled. Returning to the menu...");
             }
-
-            if (endDate.isBefore(car.getAvailableTo())) {
-                carService.splitCarAvailability(car, endDate.plusDays(1), car.getAvailableTo());
-            }
-
-
-            car.setAvailability(endDate.plusDays(1), endDate.plusDays(1));
-            System.out.println("Car rented successfully from " + startDate + " to " + endDate);
-
-
-            notifyOwner(car.getOwner(), user, car, startDate, endDate);
         } else {
             System.out.println("Returning to the menu...");
         }
-
     }
 
-    private void notifyOwner(String ownerUsername, User renter, Car car, LocalDate startDate, LocalDate endDate) {
-        System.out.println("\nNotification sent to " + ownerUsername + ":");
-        System.out.println("Your car (ID: " + car.getId() + ", " + car.getMake() + " " + car.getModel() + ") has been rented by "
-                + renter.getUsername() + " from " + startDate + " to " + endDate + ".");
-
-    }
 }
