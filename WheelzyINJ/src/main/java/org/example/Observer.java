@@ -1,6 +1,6 @@
 package org.example;
 
-interface Observer {
-    void update(String message);
+public abstract class Observer {
+    public abstract void update(String message);
 }
 

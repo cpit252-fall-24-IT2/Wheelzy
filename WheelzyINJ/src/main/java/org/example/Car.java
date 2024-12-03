@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // the abstract class for SUV and Sedan
-public abstract class Car  {
+public abstract class Car extends Observer {
     private static int idCounter = 1;
     protected int id;
     public final String make;
