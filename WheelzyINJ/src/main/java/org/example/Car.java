@@ -1,48 +1,29 @@
+
 package org.example;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
-// the abstract class for SUV and Sedan
-public abstract class Car extends Observer {
+public abstract class Car {
     private static int idCounter = 1;
     protected int id;
-    public final String make;
-    public final String model;
-    public final double price;
+    protected final String make;
+    protected final String model;
+    protected double pricePerDay;
+    protected String owner;
     protected LocalDate availableFrom;
     protected LocalDate availableTo;
-    private List<Observer> observers = new ArrayList<>();
-    protected String owner;
 
-    protected Car(String make, String model, double price, String owner, LocalDate availableFrom, LocalDate availableTo) {
+    protected Car(String make, String model, double pricePerDay, String owner, LocalDate availableFrom, LocalDate availableTo) {
         this.id = idCounter++;
         this.make = make;
         this.model = model;
-        this.price = price;
+        this.pricePerDay = Math.max(pricePerDay, 0); // Ensure non-negative price
         this.owner = owner;
         this.availableFrom = availableFrom;
         this.availableTo = availableTo;
     }
 
-    public void addObserver(Observer observer) {
-        observers.add(observer);
-    }
-
-    protected void notifyObservers(String message) {
-        for (Observer observer : observers) {
-            observer.update(message);
-        }
-    }
-//Builder**
-    //    private Car(Builder builder) {
-//        this.make = builder.setMake();
-//        this.model = builder.setModel();
-//        this.price = builder.setPrice();
-//    }
-
-    public abstract void displayCarInfo() ;
+    public abstract void displayCarInfo();
 
     public int getId() {
         return id;
@@ -56,8 +37,8 @@ public abstract class Car extends Observer {
         return model;
     }
 
-    public double getPrice() {
-        return price;
+    public double getPricePerDay() {
+        return pricePerDay;
     }
 
     public String getOwner() {
@@ -72,6 +53,12 @@ public abstract class Car extends Observer {
         return availableTo;
     }
 
+    public void setPricePerDay(double pricePerDay) {
+        if (pricePerDay <= 0) {
+            throw new IllegalArgumentException("Price must be positive.");
+        }
+        this.pricePerDay = pricePerDay;
+    }
 
     public void setAvailability(LocalDate from, LocalDate to) {
         if (from.isAfter(to)) {
@@ -80,30 +67,4 @@ public abstract class Car extends Observer {
         this.availableFrom = from;
         this.availableTo = to;
     }
-
-//    public static class Builder {
-//        private String make;
-//        private String model;
-//        private double price;
-//
-//        public Builder setMake(String make) {
-//            this.make = make;
-//            return this;
-//        }
-//
-//        public Builder setModel(String model) {
-//            this.model = model;
-//            return this;
-//        }
-//
-//        public Builder setPrice(double price) {
-//            this.price = price;
-//            return this;
-//        }
-//
-//
-//        public Car build() {
-//            return new Car(this);
-//        }
-//    }
 }

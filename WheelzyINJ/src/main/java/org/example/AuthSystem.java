@@ -1,3 +1,4 @@
+
 package org.example;
 
 import java.io.*;
@@ -24,78 +25,57 @@ public class AuthSystem {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Error loading users: " + e.getMessage());
+            System.err.println("Error loading users: " + e.getMessage());
         }
     }
 
-
-    // after register , store to log in file
     public void register(String username, String password, String phoneNumber, String email, String address) throws IOException {
         if (findUserByUsername(username) != null) {
-            System.out.println("Username is already taken!");
-            return;
+            throw new IllegalArgumentException("Username is already taken.");
         }
-
         if (findUserByPhoneNumber(phoneNumber) != null) {
-            System.out.println("Phone number is already in use!");
-            return;
+            throw new IllegalArgumentException("Phone number is already in use.");
         }
         if (findUserByEmail(email) != null) {
-            System.out.println("email is already in use!");
-            return;
+            throw new IllegalArgumentException("Email is already in use.");
         }
 
         User newUser = new User(username, password, phoneNumber, email, address);
         users.add(newUser);
         try (FileWriter writer = new FileWriter(FILE_PATH, true)) {
             writer.write(newUser.toFile() + "\n");
-            System.out.println("User registered successfully.");
         }
     }
 
     private User findUserByUsername(String username) {
-        for (User user : users) {
-            if (user.getUsername().equals(username)) {
-                return user;
-            }
-        }
-        return null;
+        return users.stream()
+                .filter(user -> user.getUsername().equals(username))
+                .findFirst()
+                .orElse(null);
     }
+
     private User findUserByPhoneNumber(String phoneNumber) {
-        for (User user : users) {
-            if (user.getPhoneNumber().equals(phoneNumber)) {
-                return user;
-            }
-        }
-        return null;
+        return users.stream()
+                .filter(user -> user.getPhoneNumber().equals(phoneNumber))
+                .findFirst()
+                .orElse(null);
     }
 
     private User findUserByEmail(String email) {
-        for (User user : users) {
-            if (user.getEmail().equals(email)) {
-                return user;
-            }
-        }
-        return null;
+        return users.stream()
+                .filter(user -> user.getEmail().equals(email))
+                .findFirst()
+                .orElse(null);
     }
 
-
-    // login will check the array of user
     public User login(String username, String password) {
         User user = findUserByUsername(username);
         if (user == null) {
-            System.out.println("Username not found.");
-            return null;
+            throw new IllegalArgumentException("Username not found.");
         }
-
-        if (!user.getPassword().equals(password)) {
-            System.out.println("Password is incorrect.");
-            return null;
+        if (!user.validatePassword(password)) {
+            throw new IllegalArgumentException("Incorrect password.");
         }
-
-        System.out.println("Login successful! Welcome, " + user.getUsername() + ".");
         return user;
     }
-
 }
-
