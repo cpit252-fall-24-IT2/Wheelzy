@@ -1,23 +1,26 @@
+
 package org.example;
-// SUV cars have different types like : Sportage (5 seats), Ford Flex (7 seats), or Chevrolet Suburban (9 seats)
+
 import java.time.LocalDate;
 
 public class SUV extends Car {
-    private int numOfSeats;
+    private final int numOfSeats;
 
-    public SUV(String make, String model, double price, int numOfSeats, String owner, LocalDate availableFrom, LocalDate availableTo) {
-        super(make, model, price, owner, availableFrom, availableTo);
+    public SUV(String make, String model, double pricePerDay, int numOfSeats, String owner, LocalDate availableFrom, LocalDate availableTo) {
+        super(make, model, pricePerDay, owner, availableFrom, availableTo);
+        if (numOfSeats <= 0) {
+            throw new IllegalArgumentException("Number of seats must be a positive integer.");
+        }
         this.numOfSeats = numOfSeats;
-    }
-
-    public int getNumOfSeats() {
-        return this.numOfSeats;
     }
 
     @Override
     public void displayCarInfo() {
-        System.out.println("ID: " + id + " | SUV: " + make + " " + model + ", Seats: " + numOfSeats + ", Price: " + price + " SAR per Day");
-        System.out.println("Available From: " + availableFrom + " To: " + availableTo);
+        System.out.printf("ID: %d | SUV: %s %s, Seats: %d, Price: %.2f SAR per Day%nAvailable From: %s To: %s%n",
+                id, make, model, numOfSeats, pricePerDay, availableFrom, availableTo);
+    }
+
+    public int getNumOfSeats() {
+        return numOfSeats;
     }
 }
-
