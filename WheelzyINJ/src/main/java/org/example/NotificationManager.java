@@ -6,13 +6,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class NotificationManager {
+public class NotificationManager extends Observer {
     private final Map<String, List<String>> notifications = new HashMap<>();
 
     public void addNotification(String recipient, String message) {
         notifications.computeIfAbsent(recipient, k -> new ArrayList<>()).add(message);
     }
 
+@Override
     public void displayNotifications(String recipient) {
         List<String> userNotifications = notifications.get(recipient);
         if (userNotifications == null || userNotifications.isEmpty()) {
