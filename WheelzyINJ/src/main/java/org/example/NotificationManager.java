@@ -24,6 +24,6 @@ public class NotificationManager extends Observer {
         for (String notification : userNotifications) {
             System.out.println("- " + notification);
         }
-        userNotifications.clear(); // Clear notifications after displaying
+        userNotifications.clear();
     }
 }

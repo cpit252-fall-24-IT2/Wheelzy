@@ -142,13 +142,13 @@ public class CarRentalSystem {
                                 car.getAvailableFrom(), car.getAvailableTo());
                         continue;
                     }
-                    break; // Valid date
+                    break;
                 } catch (Exception e) {
                     System.out.println("Invalid date format. Please enter the date in YYYY-MM-DD format.");
                 }
             }
 
-            // Collect and validate rental end date
+
             while (true) {
                 try {
                     System.out.print("Enter rental end date (YYYY-MM-DD): ");
@@ -158,30 +158,30 @@ public class CarRentalSystem {
                                 startDate, car.getAvailableTo());
                         continue;
                     }
-                    break; // Valid date
+                    break;
                 } catch (Exception e) {
                     System.out.println("Invalid date format. Please enter the date in YYYY-MM-DD format.");
                 }
             }
 
-            // Generate and display the receipt
+
             receiptGenerator.generateReceipt(car, startDate, endDate);
 
-            // Ask for confirmation
+
             System.out.print("Do you want to confirm the rental? (yes/no): ");
             String confirmation = scanner.nextLine().trim().toLowerCase();
 
             if (confirmation.equals("yes")) {
-                // Update car availability
+
                 carService.splitCarAvailability(car, startDate, endDate);
 
-                // Notify the owner
+
                 String owner = car.getOwner();
                 String message = String.format("Your car %s %s has been rented by %s from %s to %s.",
                         car.getMake(), car.getModel(), user.getUsername(), startDate, endDate);
                 notificationManager.addNotification(owner, message);
 
-                // Show final confirmation message
+
                 System.out.printf("Car rented successfully from %s to %s.%n", startDate, endDate);
                 System.out.println("The courier will contact you via mobile phone number : "+user.getPhoneNumber()+" .");
             } else {

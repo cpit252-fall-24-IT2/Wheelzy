@@ -46,7 +46,7 @@ public class CarService {
             if (price <= 0) {
                 throw new IllegalArgumentException("Price must be a positive number.");
             }
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
 
             System.out.print("Enter car type (SUV/Sedan): ");
             String type = scanner.nextLine();
@@ -67,7 +67,7 @@ public class CarService {
             if (type.equalsIgnoreCase("SUV")) {
                 System.out.print("Enter number of seats (positive integer): ");
                 int numOfSeats = scanner.nextInt();
-                scanner.nextLine(); // Consume newline
+                scanner.nextLine();
                 if (numOfSeats <= 0) {
                     throw new IllegalArgumentException("Number of seats must be a positive integer.");
                 }
@@ -114,12 +114,12 @@ public class CarService {
             throw new IllegalArgumentException("Invalid rental period. Car is not available for the selected dates.");
         }
 
-        // Adjust car availability after the rental period
+
         if (end.isBefore(car.getAvailableTo())) {
             car.setAvailability(end.plusDays(1), car.getAvailableTo());
         }
 
-        // Adjust car availability before the rental period
+
         if (start.isAfter(car.getAvailableFrom())) {
             car.setAvailability(car.getAvailableFrom(), start.minusDays(1));
         }
