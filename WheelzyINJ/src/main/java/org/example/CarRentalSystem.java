@@ -54,7 +54,7 @@ public class CarRentalSystem {
         }
     }
 
-    private void handleLogin() {
+    public void handleLogin() {
         System.out.print("Enter username: ");
         String username = scanner.nextLine();
         System.out.print("Enter password: ");
@@ -73,7 +73,7 @@ public class CarRentalSystem {
         notificationManager.displayNotifications(user.getUsername());
     }
 
-    private void handleRegister() {
+    public void handleRegister() {
         System.out.print("Enter username: ");
         String username = scanner.nextLine();
         System.out.print("Enter password: ");
@@ -91,7 +91,7 @@ public class CarRentalSystem {
         }
     }
 
-    private void userMenu(User user) {
+    public void userMenu(User user) {
         while (true) {
             System.out.println("\n1. View and Rent Cars\n2. Add Your Car\n3. Logout\n0. Exit");
             System.out.print("Choose an option: ");
@@ -113,7 +113,7 @@ public class CarRentalSystem {
         }
     }
 
-    private void rentCar(User user) {
+    public void rentCar(User user) {
         carService.displayAvailableCarsExcludingOwner(user.getUsername());
         System.out.print("\nDo you want to rent a car? (yes/no): ");
         String response = scanner.nextLine().trim().toLowerCase();
@@ -191,5 +191,7 @@ public class CarRentalSystem {
             System.out.println("Returning to the menu...");
         }
     }
-
+    public CarService getCarService() {
+        return this.carService;
+    }
 }

@@ -15,11 +15,17 @@ public class CarService {
     }
 
     public void addCar(Car car) {
+        if (car.getAvailableFrom().isAfter(car.getAvailableTo())) {
+            throw new IllegalArgumentException("Start date must be before end date.");
+        }
+
         if (car == null) {
-            throw new IllegalArgumentException("Car cannot be null.");
+            throw new IllegalArgumentException("Car must not be null.");
+
         }
         cars.add(car);
     }
+
 
     public void addCarFromInput(Scanner scanner, String ownerUsername) {
         try {
@@ -118,4 +124,6 @@ public class CarService {
             car.setAvailability(car.getAvailableFrom(), start.minusDays(1));
         }
     }
+
+
 }
