@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="WheelzyINJ:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
@@ -8,8 +13,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/login.txt" beforeDir="false" afterPath="$PROJECT_DIR$/login.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/CarRentalSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/CarRentalSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/CarService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/CarService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/org/example/AppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/AppTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -62,7 +65,10 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Abals/Desktop/IT/CPIT252/Wheelzy/WheelzyINJ"
+    "last_opened_file_path": "C:/Users/Abals/Desktop/IT/CPIT252/Wheelzy/WheelzyINJ",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2"
   }
 }]]></component>
   <component name="RunManager" selected="JUnit.AppTest">
@@ -177,16 +183,16 @@
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/WheelzyINJ$AppTest.ic" NAME="AppTest Coverage Results" MODIFIED="1733303428326" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+    <SUITE FILE_PATH="coverage/WheelzyINJ$AppTest_testRentCarOutsideAvailability.ic" NAME="AppTest.testRentCarOutsideAvailability Coverage Results" MODIFIED="1733300919698" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>org.example.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/WheelzyINJ$AppTest.ic" NAME="AppTest Coverage Results" MODIFIED="1733303982761" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>org.example.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/WheelzyINJ$AppTest_testUserMenuRentCar.ic" NAME="AppTest.testUserMenuRentCar Coverage Results" MODIFIED="1733301678275" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>org.example.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/WheelzyINJ$AppTest_testRentCarWithValidDates.ic" NAME="AppTest.testRentCarWithValidDates Coverage Results" MODIFIED="1733302451249" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
-      <FILTER>org.example.*</FILTER>
-    </SUITE>
-    <SUITE FILE_PATH="coverage/WheelzyINJ$AppTest_testRentCarOutsideAvailability.ic" NAME="AppTest.testRentCarOutsideAvailability Coverage Results" MODIFIED="1733300919698" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>org.example.*</FILTER>
     </SUITE>
   </component>

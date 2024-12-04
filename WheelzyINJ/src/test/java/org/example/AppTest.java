@@ -74,6 +74,31 @@ public class AppTest {
         assertNotNull(carService.getCarById(car.getId()));
     }
 
+    @Test
+    public void testGenerateReceipt() {
+        ReceiptGenerator receiptGenerator = new ReceiptGenerator();
+        Car car = new Sedan("Toyota", "Camry", 150.0, "Standard", "Owner1",
+                LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 10));
+        LocalDate startDate = LocalDate.of(2024, 1, 2);
+        LocalDate endDate = LocalDate.of(2024, 1, 5);
+
+        // No assertion needed, just ensure no exceptions occur and receipt displays
+        receiptGenerator.generateReceipt(car, startDate, endDate);
+    }
+
+    @Test
+    public void testNotificationManager() {
+        NotificationManager notificationManager = new NotificationManager();
+        notificationManager.addNotification("user1", "Your car has been rented.");
+        notificationManager.addNotification("user1", "Another notification.");
+        notificationManager.addNotification("user2", "A different user's notification.");
+
+        // Capture the output
+        notificationManager.displayNotifications("user1"); // Ensure messages for user1 are displayed and cleared
+        notificationManager.displayNotifications("user2"); // Ensure messages for user2 are displayed and cleared
+    }
+
+
     @Test(expected = IllegalArgumentException.class)
     public void testAddCarWithInvalidDates() {
         Car car = new Sedan("Toyota", "Camry", 150.0, "Standard", "Owner1",
