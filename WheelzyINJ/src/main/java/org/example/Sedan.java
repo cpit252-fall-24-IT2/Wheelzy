@@ -1,4 +1,3 @@
-
 package org.example;
 
 import java.time.LocalDate;
@@ -15,6 +14,11 @@ public class Sedan extends Car {
     public void displayCarInfo() {
         System.out.printf("ID: %d | Sedan: %s %s (%s), Price: %.2f SAR per Day%nAvailable From: %s To: %s%n",
                 id, make, model, type, pricePerDay, availableFrom, availableTo);
+    }
+
+    @Override
+    protected String extraAttributes() {
+        return "," + type;
     }
 
     public String getType() {

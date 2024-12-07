@@ -1,0 +1,2 @@
+Sedan,Toyota,Camry,200.0,testuser,2024-12-09,2024-12-31,Standard
+SUV,yo,cam 20,150.0,a,2024-12-21,2024-12-30,5

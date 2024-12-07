@@ -1,9 +1,7 @@
-
 package org.example;
 
 import java.io.*;
 import java.util.*;
-
 
 public class AuthSystem {
     private final String FILE_PATH = "login.txt";

@@ -1,4 +1,3 @@
-
 package org.example;
 
 import java.util.ArrayList;
@@ -11,6 +10,5 @@ public abstract class Observer {
         notifications.add(message);
     }
 
-   public abstract void displayNotifications(String message);
-
+    public abstract void displayNotifications(String message);
 }

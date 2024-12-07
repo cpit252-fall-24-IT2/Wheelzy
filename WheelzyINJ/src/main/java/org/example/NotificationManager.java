@@ -1,4 +1,3 @@
-
 package org.example;
 
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ public class NotificationManager extends Observer {
         notifications.computeIfAbsent(recipient, k -> new ArrayList<>()).add(message);
     }
 
-@Override
+    @Override
     public void displayNotifications(String recipient) {
         List<String> userNotifications = notifications.get(recipient);
         if (userNotifications == null || userNotifications.isEmpty()) {

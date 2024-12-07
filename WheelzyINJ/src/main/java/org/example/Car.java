@@ -1,4 +1,3 @@
-
 package org.example;
 
 import java.time.LocalDate;
@@ -17,7 +16,7 @@ public abstract class Car {
         this.id = idCounter++;
         this.make = make;
         this.model = model;
-        this.pricePerDay = Math.max(pricePerDay, 0); // Ensure non-negative price
+        this.pricePerDay = Math.max(pricePerDay, 0);
         this.owner = owner;
         this.availableFrom = availableFrom;
         this.availableTo = availableTo;
@@ -66,5 +65,16 @@ public abstract class Car {
         }
         this.availableFrom = from;
         this.availableTo = to;
+    }
+
+    public String toFile() {
+        String type = this instanceof Sedan ? "Sedan" : this instanceof SUV ? "SUV" : "Unknown";
+        return type + "," + make + "," + model + "," + pricePerDay + "," + owner + "," + availableFrom + "," + availableTo + extraAttributes();
+    }
+
+    protected abstract String extraAttributes();
+
+    public static void resetIdCounter() {
+        idCounter = 1;
     }
 }

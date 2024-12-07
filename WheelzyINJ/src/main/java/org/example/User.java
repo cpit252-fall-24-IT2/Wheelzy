@@ -31,25 +31,11 @@ public class User {
         this.address = address;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public boolean validatePassword(String inputPassword) {
-        return password.equals(inputPassword);
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getAddress() {
-        return address;
-    }
+    public String getUsername() { return username; }
+    public boolean validatePassword(String inputPassword) { return password.equals(inputPassword); }
+    public String getPhoneNumber() { return phoneNumber; }
+    public String getEmail() { return email; }
+    public String getAddress() { return address; }
 
     public String toFile() {
         return username + "," + password + "," + phoneNumber + "," + email + "," + address;
