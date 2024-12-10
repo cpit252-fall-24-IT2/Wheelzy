@@ -79,6 +79,8 @@ Unit tests are implemented to ensure the core functionalities of the Wheelzy Car
 
 ## Testing
  The project includes many automated tests (using JUnit) to ensure that all features, like registering, logging in, renting cars, and generating notifications and receipts, work as intended. These tests cover a wide range of scenarios, including correct operations and error handling and we got 77% over this Test.
+ 
+![Screenshot 2024-12-10 130702](https://github.com/user-attachments/assets/baff9358-3466-45c8-8cba-dae4cfec2299)
 
 ---
 
