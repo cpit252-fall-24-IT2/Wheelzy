@@ -65,8 +65,8 @@ The project includes:
 
 ---
 
-## Unit Testing
-# Purpose
+# Unit Testing
+## Purpose
 Unit tests are implemented to ensure the core functionalities of the Wheelzy Car Rental System work as expected. These tests cover:
 
 - User Authentication: Validates login, registration, and input validation.
@@ -77,8 +77,17 @@ Unit tests are implemented to ensure the core functionalities of the Wheelzy Car
 
 ![image](https://github.com/user-attachments/assets/eac35e8e-5d2e-42eb-b242-a91edc6eadf0)
 
+## Testing
+ The project includes many automated tests (using JUnit) to ensure that all features, like registering, logging in, renting cars, and generating notifications and receipts, work as intended. These tests cover a wide range of scenarios, including correct operations and error handling and we got 77% over this Test.
 
-# Framework
+---
+
+## Contribute:
+Total commit of project is 72 | Amer 32 commits - Abdulrahmn 40 commits
+(There is github insights problem with Abdulrhamn contributed while there is commits by his name in the repo)
+
+
+## Framework
 JUnit: All unit tests are written using the JUnit framework.
 
 ---
@@ -140,5 +149,8 @@ Contributions are welcome! Please follow these steps:
 4. Create a pull request explaining your changes.
 
 ---
+
+## Overall
+ "Wheelzy" demonstrates how to manage user accounts, handle car data, process rentals, send notifications, and produce receipts in a straightforward, text-based environment. It is a good example of how to build a simple, file-driven rental application in Java.
 
 Feel free to use and modify the code as needed, but please provide proper attribution to the original repository.
